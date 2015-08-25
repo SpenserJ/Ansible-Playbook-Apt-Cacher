@@ -1,0 +1,10 @@
+---
+- hosts: clients
+  sudo: True
+  tasks:
+  - name: Add Apt proxy
+    template: src=90-apt-proxy.conf.j2 dest=/etc/apt/apt.conf.d/90-apt-proxy.conf
+    when: ansible_os_family == 'Debian'
+  - name: Update Apt
+    apt: update_cache=yes
+    when: ansible_os_family == 'Debian'
